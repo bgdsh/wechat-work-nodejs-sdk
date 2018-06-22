@@ -1,4 +1,5 @@
 import { doGet } from "./http-helper";
+import { EnumSecretType } from "./secret-type.enum";
 
 export class AccessToken {
   public static deSerialize(serialized: string, ttlSeconds?: number) {
@@ -13,12 +14,19 @@ export class AccessToken {
     const expiresIn = ttlSeconds
       ? ttlSeconds
       : (Date.now() - parseInt(splited[1], 10)) / 1000;
-    return new AccessToken(splited[2], splited[0], expiresIn, splited[3]);
+    return new AccessToken(
+      splited[2],
+      splited[0],
+      expiresIn,
+      parseInt(splited[3], 10),
+      splited[4]
+    );
   }
 
   public static async fetch(
     cropId: string,
     secret: string,
+    secretType: EnumSecretType,
     agentId?: string
   ): Promise<AccessToken> {
     const resData = (await doGet(
@@ -28,11 +36,16 @@ export class AccessToken {
       cropId,
       resData.access_token,
       resData.expires_in,
+      secretType,
       agentId
     );
   }
 
-  public static key(cropId: string, agentId?: string) {
+  public static key(
+    cropId: string,
+    secretType: EnumSecretType,
+    agentId?: string
+  ) {
     let key = `WECHAT_WORK_ACCESS_TOKEN:${cropId}`;
     if (agentId) {
       key += `:${agentId}`;
@@ -45,12 +58,14 @@ export class AccessToken {
   public expiresIn: number;
   public createdAt: number;
   public expiresAt: number;
+  public secretType: EnumSecretType;
   public agentId?: string;
 
   constructor(
     cropId: string,
     accessToken: string,
     expiresIn: number,
+    secretType: EnumSecretType,
     agentId?: string
   ) {
     this.accessToken = accessToken;
@@ -59,6 +74,7 @@ export class AccessToken {
     this.expiresAt = this.createdAt + this.expiresIn * 1000;
     this.cropId = cropId;
     this.agentId = agentId;
+    this.secretType = secretType;
   }
 
   public isExpired() {
@@ -66,7 +82,7 @@ export class AccessToken {
   }
 
   public get key() {
-    return AccessToken.key(this.cropId, this.cropId);
+    return AccessToken.key(this.cropId, this.secretType, this.agentId);
   }
 
   public get serialized() {
