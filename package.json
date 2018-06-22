@@ -1,0 +1,51 @@
+{
+  "name": "wechat-work",
+  "version": "0.0.1",
+  "description": "sdk for work.weixin.qq.com/api/doc.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bgdsh/wechat-work-nodejs-sdk.git"
+  },
+  "keywords": [
+    "wechat-work",
+    "api"
+  ],
+  "author": "Bain Bai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bgdsh/wechat-work-nodejs-sdk/issues"
+  },
+  "homepage": "https://github.com/bgdsh/wechat-work-nodejs-sdk#readme",
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.1.1",
+    "jest": "^23.1.0",
+    "ts-jest": "^22.4.6",
+    "ts-node": "^6.1.2",
+    "typescript": "^2.9.2"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/__tests__/*.+(ts|js)"
+    ]
+  }
+}

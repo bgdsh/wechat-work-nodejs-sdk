@@ -1,0 +1,22 @@
+{
+  "eslint.enable": false,
+  "editor.formatOnSave": true,
+  "cSpell.words": [
+    "Bain",
+    "Wechat",
+    "appid",
+    "errcode",
+    "errmsg",
+    "extattr",
+    "isleader",
+    "mediaid",
+    "miniprogram",
+    "openid",
+    "pagepath",
+    "splited",
+    "userid",
+    "useridlist",
+    "userlist",
+    "weixin"
+  ]
+}
