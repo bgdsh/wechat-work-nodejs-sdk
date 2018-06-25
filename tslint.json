@@ -6,7 +6,9 @@
     "jsRules": {},
     "rules": {
         "trailing-comma": false,
-        "variable-name": [true, "allow-leading-underscore"]
+        "variable-name": [true, "allow-leading-underscore"],
+        "arrow-parens": [true, "ban-single-arg-parens"]
+
     },
     "rulesDirectory": []
 }

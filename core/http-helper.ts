@@ -6,8 +6,8 @@ const checkResponse = (res: AxiosResponse) => {
   }
 };
 
-const handleHttpError = (res: any) => {
-  throw Error(`HTTP_ERROR_FROM_WECHAT:${JSON.stringify(res)}`);
+const handleHttpError = (err: any) => {
+  throw Error(`HTTP_ERROR_FROM_WECHAT:${JSON.stringify(err)}`);
 };
 
 export const doGet = async (url: string, clear: boolean = true) => {
@@ -21,7 +21,7 @@ export const doGet = async (url: string, clear: boolean = true) => {
     }
     return resData;
   } catch (err) {
-    handleHttpError(err.response);
+    handleHttpError(err);
   }
 };
 

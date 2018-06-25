@@ -1,7 +1,7 @@
-import { CommanderParent } from "../../core";
+import { AccessToken, CommanderParent } from "../../core";
 
 export class TagsCommander extends CommanderParent {
-  constructor(accessToken: string) {
+  constructor(accessToken: AccessToken) {
     super(accessToken);
   }
 }

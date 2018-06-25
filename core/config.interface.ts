@@ -5,13 +5,14 @@ export interface IApp {
 
 export interface IConfig {
   cropId: string;
-  cropSecret: string;
   contactSecret?: string;
   apps: IApp[];
-  getAccessToken: (key: string) => string;
+  getAccessToken: (
+    key: string
+  ) => Promise<{ ttlSeconds?: number; content: string }>;
   saveAccessToken: (
     key: string,
     serialized: string,
     ttlSeconds: number
-  ) => void;
+  ) => Promise<void>;
 }

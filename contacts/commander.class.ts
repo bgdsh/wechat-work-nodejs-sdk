@@ -1,13 +1,14 @@
+import { AccessToken } from "../core";
 import { DepartmentsCommander } from "./departments";
 import { MembersCommander } from "./members";
 import { TagsCommander } from "./tags";
 
 export class ContactsCommander {
-  private accessToken: string;
+  public accessToken: AccessToken;
   private _departments?: DepartmentsCommander;
   private _tags?: TagsCommander;
   private _members?: MembersCommander;
-  constructor(accessToken: string) {
+  constructor(accessToken: AccessToken) {
     this.accessToken = accessToken;
   }
 
