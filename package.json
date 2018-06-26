@@ -4,7 +4,8 @@
   "description": "sdk for work.weixin.qq.com/api/doc.",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:badges": "npm run test && jest-coverage-badges"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "@types/jsonfile": "^4.0.1",
     "dotenv": "^6.0.0",
     "jest": "^23.1.0",
+    "jest-coverage-badges": "^1.0.0",
     "jsonfile": "^4.0.0",
     "ts-jest": "^22.4.6",
     "ts-node": "^6.1.2",
@@ -36,6 +38,11 @@
   },
   "jest": {
     "collectCoverage": true,
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
     "moduleFileExtensions": [
       "ts",
       "js"
