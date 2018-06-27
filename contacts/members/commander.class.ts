@@ -1,5 +1,4 @@
-import { AccessToken, CommanderParent } from "../../core";
-import { doGet, doPost } from "../../core/http-helper";
+import { AccessToken, CommanderParent, doGet, doPost } from "../../core";
 import { Member } from "./member.class";
 import { SimpleMember } from "./simple-member.class";
 import { EnumTrueFalse } from "./true-false.enum";
@@ -14,7 +13,7 @@ export class MembersCommander extends CommanderParent {
     const url = `https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token=${
       this.accessToken.accessToken
     }`;
-    const resData = await doPost(url, member);
+    await doPost(url, member);
     return;
   }
 

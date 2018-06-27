@@ -1,7 +1,7 @@
-import { AccessToken } from "../core";
+import { AccessToken, doPost, EnumErrors } from "../core";
 import { DepartmentsCommander } from "./departments";
 import { MembersCommander } from "./members";
-import { TagsCommander } from "./tags";
+import { IInvalid, TagsCommander } from "./tags";
 
 export class ContactsCommander {
   public accessToken: AccessToken;
@@ -31,5 +31,33 @@ export class ContactsCommander {
       this._tags = new TagsCommander(this.accessToken);
     }
     return this._tags;
+  }
+
+  public async invite(
+    memberIds?: string[],
+    departmentIds?: number[],
+    tagIds?: number[]
+  ) {
+    if (
+      (!memberIds || memberIds.length === 0) &&
+      (!departmentIds || departmentIds.length === 0) &&
+      (!tagIds || tagIds.length === 0)
+    ) {
+      throw Error(EnumErrors.INVITE_PARAMETERS_ALL_UNDEFINED);
+    }
+    await this.accessToken.ensureNotExpired();
+    const url = `https://qyapi.weixin.qq.com/cgi-bin/batch/invite?access_token=${
+      this.accessToken.accessToken
+    }`;
+    const resData = await doPost(url, {
+      party: departmentIds,
+      tag: tagIds,
+      user: memberIds
+    });
+    return {
+      invalidDepartmentIds: resData.invalidparty,
+      invalidMemberIds: resData.invaliduser,
+      invalidTagIds: resData.invalidtag
+    } as IInvalid;
   }
 }
