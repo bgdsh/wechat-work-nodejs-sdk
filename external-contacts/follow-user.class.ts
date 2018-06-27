@@ -1,14 +1,14 @@
-export class FollowMember {
+export class FollowUser {
   public userid!: string;
   public remark!: string;
   public description!: string;
   public createtime!: number;
 
-  public get memberId() {
+  public get userId() {
     return this.userid;
   }
 
-  public set memberId(id: string) {
+  public set userId(id: string) {
     this.userid = id;
   }
 

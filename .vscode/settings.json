@@ -4,6 +4,8 @@
   "cSpell.words": [
     "Bain",
     "Wechat",
+    "agentid",
+    "agentlist",
     "appid",
     "createtime",
     "encodingaeskey",
@@ -15,6 +17,7 @@
     "invalidtag",
     "invaliduser",
     "isleader",
+    "isreportenter",
     "jobid",
     "lcov",
     "mediaid",
@@ -22,13 +25,16 @@
     "openid",
     "pagepath",
     "parentid",
+    "partyid",
     "partylist",
+    "partys",
     "splited",
     "tagid",
     "taglist",
     "unionid",
     "userid",
     "useridlist",
+    "userinfos",
     "userlist",
     "weixin"
   ]

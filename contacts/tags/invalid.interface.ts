@@ -1,5 +1,5 @@
 export interface IInvalid {
   invalidDepartmentIds?: number[];
-  invalidMemberIds?: string[];
+  invalidUserIds?: string[];
   invalidTagIds?: number[];
 }

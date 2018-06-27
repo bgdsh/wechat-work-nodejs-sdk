@@ -5,7 +5,7 @@ import { IExtAttr } from "./ext-attr.interface";
 import { EnumGender } from "./gender.enum";
 import { EnumTrueFalse } from "./true-false.enum";
 
-export class Member {
+export class User {
   public userid: string;
   public name: string;
   // tslint:disable-next-line:variable-name

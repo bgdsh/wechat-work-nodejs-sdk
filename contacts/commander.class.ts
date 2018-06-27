@@ -1,14 +1,14 @@
 import { Callback } from ".";
-import { AccessToken, doPost, EnumErrors, doGet } from "../core";
+import { AccessToken, doGet, doPost, EnumErrors } from "../core";
 import { DepartmentsCommander } from "./departments";
-import { MembersCommander } from "./members";
 import { IInvalid, TagsCommander } from "./tags";
+import { UsersCommander } from "./users";
 
 export class ContactsCommander {
   public accessToken: AccessToken;
   private _departments?: DepartmentsCommander;
   private _tags?: TagsCommander;
-  private _members?: MembersCommander;
+  private _users?: UsersCommander;
   constructor(accessToken: AccessToken) {
     this.accessToken = accessToken;
   }
@@ -21,10 +21,10 @@ export class ContactsCommander {
   }
 
   public get members() {
-    if (!this._members) {
-      this._members = new MembersCommander(this.accessToken);
+    if (!this._users) {
+      this._users = new UsersCommander(this.accessToken);
     }
-    return this._members;
+    return this._users;
   }
 
   public get tags() {

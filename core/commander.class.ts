@@ -1,12 +1,10 @@
+import { AccessToken, EnumSecretType, IConfig } from ".";
 import { ContactsCommander } from "../contacts";
+import { CustomizedAppsCommander } from "../customized-apps";
 import { ExternalContactCommander } from "../external-contacts";
-import { AccessToken } from "./access-token.class";
-import { IConfig } from "./config.interface";
-import { EnumSecretType } from "./secret-type.enum";
 
 export class Commander {
   private config: IConfig;
-  private _externalContactsCommander?: ExternalContactCommander;
   constructor(config: IConfig) {
     this.config = config;
   }
@@ -20,15 +18,18 @@ export class Commander {
   }
 
   public async getExternalContactsCommander() {
-    if (this._externalContactsCommander === undefined) {
-      const accessToken = await AccessToken.get(
-        this.config,
-        EnumSecretType.ExternalContact
-      );
-      this._externalContactsCommander = new ExternalContactCommander(
-        accessToken
-      );
-    }
-    return this._externalContactsCommander;
+    const accessToken = await AccessToken.get(
+      this.config,
+      EnumSecretType.ExternalContact
+    );
+    return new ExternalContactCommander(accessToken);
+  }
+
+  public async getCustomizedAppCommander() {
+    const accessToken = await AccessToken.get(
+      this.config,
+      EnumSecretType.ExternalContact
+    );
+    return new CustomizedAppsCommander(accessToken);
   }
 }

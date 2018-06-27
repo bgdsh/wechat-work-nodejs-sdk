@@ -1,8 +1,8 @@
 import { EnumGender } from "../contacts";
-import { EnumExternalContactType } from "./external-contact-type.enum";
 import { IExternalProfile } from "./external-profile";
+import { EnumExternalUserType } from "./external-user-type.enum";
 
-export class ExternalContact {
+export class ExternalUser {
   // tslint:disable-next-line:variable-name
   public external_userid!: string;
   public position!: string;
@@ -12,7 +12,7 @@ export class ExternalContact {
   // tslint:disable-next-line:variable-name
   public crop_full_name!: string;
 
-  public type!: EnumExternalContactType;
+  public type!: EnumExternalUserType;
 
   public gender!: EnumGender;
 

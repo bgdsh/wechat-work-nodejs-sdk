@@ -1,14 +1,14 @@
 import { AccessToken, CommanderParent, doGet, doPost } from "../../core";
-import { Member } from "./member.class";
-import { SimpleMember } from "./simple-member.class";
+import { SimpleUser } from "./simple-user.class";
 import { EnumTrueFalse } from "./true-false.enum";
+import { User } from "./user.class";
 
-export class MembersCommander extends CommanderParent {
+export class UsersCommander extends CommanderParent {
   constructor(accessToken: AccessToken) {
     super(accessToken);
   }
 
-  public async create(member: Member) {
+  public async create(member: User) {
     await this.accessToken.ensureNotExpired();
     const url = `https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token=${
       this.accessToken.accessToken
@@ -23,15 +23,15 @@ export class MembersCommander extends CommanderParent {
       this.accessToken.accessToken
     }&userid=${userId}`;
     const resData = await doGet(url);
-    return resData as Member;
+    return resData as User;
   }
 
-  public async update(member: Member) {
+  public async update(user: User) {
     await this.accessToken.ensureNotExpired();
     const url = `https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token=${
       this.accessToken.accessToken
     }`;
-    await doPost(url, member);
+    await doPost(url, user);
     return;
   }
 
@@ -61,7 +61,7 @@ export class MembersCommander extends CommanderParent {
       this.accessToken.accessToken
     }&department_id=${departmentId}&fetch_child=${fetchChild}`;
     const response = await doGet(url);
-    return response.data.userlist as SimpleMember[];
+    return response.data.userlist as SimpleUser[];
   }
 
   public async findByDepartment(
@@ -73,7 +73,7 @@ export class MembersCommander extends CommanderParent {
       this.accessToken.accessToken
     }&department_id=${departmentId}&fetch_child=${fetchChild}`;
     const response = await doGet(url);
-    return response.data.userlist as Member[];
+    return response.data.userlist as User[];
   }
 
   public async convertToOpenId(userId: string) {

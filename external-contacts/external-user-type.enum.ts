@@ -1,4 +1,4 @@
-export enum EnumExternalContactType {
+export enum EnumExternalUserType {
   WechatUser = 1,
   WechatWorkUser = 2
 }
