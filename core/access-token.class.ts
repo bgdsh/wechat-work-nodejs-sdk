@@ -107,6 +107,9 @@ export class AccessToken {
       case EnumSecretType.Contact:
         key += ":Contact";
         break;
+      case EnumSecretType.ExternalContact:
+        key += ":ExternalContact";
+        break;
       case EnumSecretType.Agent:
         if (!agentId) {
           throw Error(EnumErrors.AGENT_ID_SHOULD_PROVIDED);
@@ -131,6 +134,12 @@ export class AccessToken {
           throw Error(EnumErrors.CONTACT_SECRET_SHOULD_PROVIDED);
         }
         secret = config.contactSecret;
+        break;
+      case EnumSecretType.ExternalContact:
+        if (config.externalContactSecret === undefined) {
+          throw Error(EnumErrors.EXTERNAL_CONTACT_SECRET_SHOULD_PROVIDED);
+        }
+        secret = config.externalContactSecret;
         break;
       case EnumSecretType.Agent:
         const pair = config.apps.filter(app => app.agentId === agentId);

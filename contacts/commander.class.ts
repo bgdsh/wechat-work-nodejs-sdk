@@ -1,4 +1,5 @@
-import { AccessToken, doPost, EnumErrors } from "../core";
+import { Callback } from ".";
+import { AccessToken, doPost, EnumErrors, doGet } from "../core";
 import { DepartmentsCommander } from "./departments";
 import { MembersCommander } from "./members";
 import { IInvalid, TagsCommander } from "./tags";
@@ -59,5 +60,66 @@ export class ContactsCommander {
       invalidMemberIds: resData.invaliduser,
       invalidTagIds: resData.invalidtag
     } as IInvalid;
+  }
+
+  public async batchAddMembers(
+    mediaId: string,
+    toInvite: boolean = true,
+    callback?: Callback
+  ) {
+    await this.accessToken.ensureNotExpired();
+    const url = `https://qyapi.weixin.qq.com/cgi-bin/batch/syncuser?access_token=${
+      this.accessToken.accessToken
+    }`;
+    const resData = await doPost(url, {
+      media_id: mediaId,
+      to_invite: toInvite,
+      callback
+    });
+    return resData.jobid as string;
+  }
+
+  public async batchReplaceMembers(
+    mediaId: string,
+    toInvite: boolean = true,
+    callback?: Callback
+  ) {
+    await this.accessToken.ensureNotExpired();
+    const url = `https://qyapi.weixin.qq.com/cgi-bin/batch/replaceuser?access_token=${
+      this.accessToken.accessToken
+    }`;
+    const resData = await doPost(url, {
+      media_id: mediaId,
+      to_invite: toInvite,
+      callback
+    });
+    return resData.jobid as string;
+  }
+
+  public async batchReplaceDepartments(mediaId: string, callback?: Callback) {
+    await this.accessToken.ensureNotExpired();
+    const url = `https://qyapi.weixin.qq.com/cgi-bin/batch/replaceparty?access_token=${
+      this.accessToken.accessToken
+    }`;
+    const resData = await doPost(url, {
+      media_id: mediaId,
+      callback
+    });
+    return resData.jobid as string;
+  }
+
+  public async getBatchResult(jobId: string) {
+    await this.accessToken.ensureNotExpired();
+    const url = `https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?access_token=${
+      this.accessToken.accessToken
+    }&jobid=${jobId}`;
+    const resData = await doGet(url);
+    return resData as {
+      status: number;
+      type: string;
+      total: number;
+      percentage: number;
+      result: any[];
+    };
   }
 }

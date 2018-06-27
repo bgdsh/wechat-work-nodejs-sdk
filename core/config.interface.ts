@@ -6,6 +6,7 @@ export interface IApp {
 export interface IConfig {
   cropId: string;
   contactSecret?: string;
+  externalContactSecret?: string;
   apps: IApp[];
   getAccessToken: (
     key: string
