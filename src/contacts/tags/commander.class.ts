@@ -1,5 +1,5 @@
 import { AccessToken, CommanderParent, doGet, doPost } from "../../core";
-import { SimpleMember } from "../members";
+import { SimpleUser } from "../users";
 import { IInvalid } from "./invalid.interface";
 import { Tag } from "./tag.class";
 
@@ -53,7 +53,7 @@ export class TagsCommander extends CommanderParent {
     const resData = await doGet(url);
     return {
       departmentIdList: resData.partylist as number[],
-      memberList: resData.userlist as SimpleMember[],
+      memberList: resData.userlist as SimpleUser[],
       tag: new Tag(resData.tagname, tagId)
     };
   }

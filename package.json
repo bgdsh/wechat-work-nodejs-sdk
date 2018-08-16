@@ -2,9 +2,12 @@
   "name": "wechat-work",
   "version": "0.0.1",
   "description": "sdk for work.weixin.qq.com/api/doc.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
     "test": "jest",
+    "prepublishOnly": "npm run build",
+    "postpack": "rm -rf ./dist",
     "test:badges": "npm run test && jest-coverage-badges"
   },
   "repository": {

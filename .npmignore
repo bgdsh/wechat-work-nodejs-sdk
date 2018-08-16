@@ -1,0 +1,4 @@
+.vscode
+__tests__
+coverage
+node_modules
