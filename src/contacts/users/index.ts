@@ -1,3 +1,4 @@
+export * from "./auth-scope.enum";
 export * from "./commander.class";
 export * from "./ext-attr.interface";
 export * from "./user.class";
