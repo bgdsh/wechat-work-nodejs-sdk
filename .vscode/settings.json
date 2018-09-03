@@ -24,6 +24,7 @@
     "lcov",
     "mediaid",
     "miniprogram",
+    "noncestr",
     "openid",
     "pagepath",
     "parentid",
