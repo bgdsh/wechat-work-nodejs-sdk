@@ -3,6 +3,7 @@
   "editor.formatOnSave": true,
   "cSpell.words": [
     "Bain",
+    "JSAPI",
     "Wechat",
     "agentid",
     "agentlist",
@@ -19,6 +20,7 @@
     "isleader",
     "isreportenter",
     "jobid",
+    "jssdk",
     "lcov",
     "mediaid",
     "miniprogram",

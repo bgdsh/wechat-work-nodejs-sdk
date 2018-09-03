@@ -14,7 +14,7 @@ export class AccessToken {
   ): Promise<AccessToken> {
     // TODO: add a force fetch logic
     const key = AccessToken.key(config.cropId, secretType, agentId);
-    const cachedAccessToken = await config.getAccessToken(key);
+    const cachedAccessToken = await config.getFromCacheMethod(key);
     if (cachedAccessToken && cachedAccessToken.content) {
       if (cachedAccessToken.ttlSeconds) {
         if (cachedAccessToken.ttlSeconds > ACCESS_TOKEN_EXPIRE_CUTOFF) {
@@ -50,7 +50,7 @@ export class AccessToken {
       agentId
     );
     fetched.config = config;
-    await config.saveAccessToken(
+    await config.saveToCacheMethod(
       fetched.key,
       fetched.serialized,
       fetched.expiresIn
@@ -58,6 +58,7 @@ export class AccessToken {
     fetching[key] = false;
     return fetched;
   }
+
   public static deSerialize(serialized: string, ttlSeconds?: number) {
     if (!serialized) {
       throw Error("serialized access token can not be an empty string.");
@@ -102,6 +103,8 @@ export class AccessToken {
     secretType: EnumSecretType,
     agentId?: string
   ) {
+    // tslint:disable-next-line:no-console
+    console.log("secretType: ", secretType);
     let key = `WECHAT_WORK_ACCESS_TOKEN:${cropId}`;
     switch (secretType) {
       case EnumSecretType.Contact:
@@ -147,6 +150,7 @@ export class AccessToken {
           throw Error(EnumErrors.AGENT_NOT_CONFIGURED);
         }
         secret = pair[0].agentSecret;
+        break;
       default:
         throw Error(EnumErrors.SECRET_TYPE_NOT_SUPPORTED);
     }

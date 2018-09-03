@@ -2,6 +2,7 @@ import { AccessToken, EnumSecretType, IConfig } from ".";
 import { ContactsCommander } from "../contacts";
 import { CustomizedAppsCommander } from "../customized-apps";
 import { ExternalContactCommander } from "../external-contacts";
+import { JsSdkCommander } from "../jssdk";
 
 export class Commander {
   private config: IConfig;
@@ -10,10 +11,9 @@ export class Commander {
   }
 
   public async getContactsCommander(
-    secretType: EnumSecretType = EnumSecretType.Contact,
-    agentId?: string
+    secretType: EnumSecretType = EnumSecretType.Contact
   ) {
-    const accessToken = await AccessToken.get(this.config, secretType, agentId);
+    const accessToken = await AccessToken.get(this.config, secretType);
     return new ContactsCommander(accessToken);
   }
 
@@ -25,11 +25,25 @@ export class Commander {
     return new ExternalContactCommander(accessToken);
   }
 
-  public async getCustomizedAppCommander() {
+  public async getAccessToken(secretType: EnumSecretType, agentId?: string) {
+    return AccessToken.get(this.config, secretType, agentId);
+  }
+
+  public async getCustomizedAppCommander(agentId: string) {
     const accessToken = await AccessToken.get(
       this.config,
-      EnumSecretType.ExternalContact
+      EnumSecretType.Agent,
+      agentId
     );
     return new CustomizedAppsCommander(accessToken);
+  }
+
+  public async getJsSdkCommander(agentId: string) {
+    const accessToken = await AccessToken.get(
+      this.config,
+      EnumSecretType.Agent,
+      agentId
+    );
+    return new JsSdkCommander(accessToken, agentId, this.config);
   }
 }

@@ -8,10 +8,10 @@ export interface IConfig {
   contactSecret?: string;
   externalContactSecret?: string;
   apps: IApp[];
-  getAccessToken: (
+  getFromCacheMethod: (
     key: string
   ) => Promise<{ ttlSeconds?: number; content: string }>;
-  saveAccessToken: (
+  saveToCacheMethod: (
     key: string,
     serialized: string,
     ttlSeconds: number

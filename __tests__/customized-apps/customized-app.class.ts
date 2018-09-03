@@ -1,4 +1,4 @@
-import { CustomizedApp } from "../../customized-apps/customized-app.class";
+import { CustomizedApp } from "../../src/customized-apps";
 
 test("getter should works fine", () => {
   const obj = {
