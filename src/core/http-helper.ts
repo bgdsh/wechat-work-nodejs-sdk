@@ -6,8 +6,10 @@ const checkResponse = (res: AxiosResponse) => {
   }
 };
 
-const handleHttpError = (err: any) => {
-  throw Error(`HTTP_ERROR_FROM_WECHAT:${JSON.stringify(err)}`);
+const handleHttpError = (err: any, url: string, method: string, data?: any) => {
+  throw Error(
+    `HTTP_ERROR_FROM_WECHAT:${{ message: err.message, url, method, data }}`
+  );
 };
 
 export const doGet = async (url: string, clear: boolean = true) => {
@@ -21,7 +23,7 @@ export const doGet = async (url: string, clear: boolean = true) => {
     }
     return resData;
   } catch (err) {
-    handleHttpError(err);
+    handleHttpError(err, url, "get");
   }
 };
 
@@ -34,6 +36,6 @@ export const doPost = async (url: string, data: any) => {
     delete resData.errmsg;
     return resData;
   } catch (err) {
-    handleHttpError(err.response);
+    handleHttpError(err, url, "post", data);
   }
 };
