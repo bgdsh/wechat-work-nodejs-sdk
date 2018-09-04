@@ -36,7 +36,7 @@ export class Commander {
       EnumSecretType.Agent,
       agentId
     );
-    return new CustomizedAppsCommander(accessToken);
+    return new CustomizedAppsCommander(accessToken, agentId);
   }
 
   public async getJsSdkCommander(agentId: string) {

@@ -20,7 +20,7 @@ export class ContactsCommander {
     return this._departments;
   }
 
-  public get members() {
+  public get users() {
     if (!this._users) {
       this._users = new UsersCommander(this.accessToken);
     }

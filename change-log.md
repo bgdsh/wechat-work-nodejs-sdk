@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+## [0.0.5-RC4] - 2018.9.4
+
+- move the getting user detail logic to customized apps commander.
+
+## [0.0.5-RC3] - 2018.9.4
+
+- fix the print message bug
+
 ## [0.0.5-RC2] - 2018.9.4
 
 - print more detailed http error
