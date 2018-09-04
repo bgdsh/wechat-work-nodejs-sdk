@@ -2,6 +2,22 @@
 
 ## [Unreleased]
 
+## [0.0.5] - 2018.9.4
+
+- same as 0.0.5-RC7, just change the version number
+
+## [0.0.5-RC7] - 2018.9.4
+
+- fix a object reference bug.
+
+## [0.0.5-RC6] - 2018.9.4
+
+- add more debug info
+
+## [0.0.5-RC5] - 2018.9.4
+
+- add debug info
+
 ## [0.0.5-RC4] - 2018.9.4
 
 - move the getting user detail logic to customized apps commander.

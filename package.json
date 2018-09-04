@@ -1,6 +1,6 @@
 {
   "name": "wechat-work",
-  "version": "0.0.5-RC4",
+  "version": "0.0.5",
   "description": "sdk for work.weixin.qq.com/api/doc.",
   "main": "dist/index.js",
   "scripts": {
@@ -27,10 +27,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "chance": "^1.0.16",
+    "debug": "^3.1.0",
     "sha1": "^1.1.1"
   },
   "devDependencies": {
     "@types/chance": "^1.0.1",
+    "@types/debug": "0.0.30",
     "@types/dotenv": "^4.0.3",
     "@types/jest": "^23.1.1",
     "@types/jsonfile": "^4.0.1",
