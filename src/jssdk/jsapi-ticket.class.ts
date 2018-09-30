@@ -10,7 +10,7 @@ export class JsApiTicket {
     accessToken: AccessToken
   ): Promise<JsApiTicket> {
     // TODO: add a force fetch logic
-    const key = JsApiTicket.key(config.cropId, agentId);
+    const key = JsApiTicket.key(config.corpId, agentId);
     const cachedJsApiTicket = await config.getFromCacheMethod(key);
     if (cachedJsApiTicket && cachedJsApiTicket.content) {
       if (cachedJsApiTicket.ttlSeconds) {
@@ -91,7 +91,7 @@ export class JsApiTicket {
     }`;
     const resData = (await doGet(url)) as any;
     return new JsApiTicket(
-      config.cropId,
+      config.corpId,
       resData.ticket,
       resData.expires_in,
       agentId,
@@ -99,11 +99,11 @@ export class JsApiTicket {
     );
   }
 
-  public static key(cropId: string, agentId: string) {
-    return `WECHAT_WORK_JSAPI_TICKET_CROP_${cropId}_AGENT_${agentId}`;
+  public static key(corpId: string, agentId: string) {
+    return `WECHAT_WORK_JSAPI_TICKET_CORP_${corpId}_AGENT_${agentId}`;
   }
 
-  public cropId: string;
+  public corpId: string;
   public ticket: string;
   public expiresIn: number;
   public createdAt: number;
@@ -113,7 +113,7 @@ export class JsApiTicket {
   public accessToken: AccessToken;
 
   constructor(
-    cropId: string,
+    corpId: string,
     ticket: string,
     expiresIn: number,
     agentId: string,
@@ -124,7 +124,7 @@ export class JsApiTicket {
     this.expiresIn = expiresIn;
     this.createdAt = Date.now();
     this.expiresAt = this.createdAt + this.expiresIn * 1000;
-    this.cropId = cropId;
+    this.corpId = corpId;
     this.agentId = agentId;
     this.config = config;
     this.accessToken = accessToken;
@@ -135,11 +135,11 @@ export class JsApiTicket {
   }
 
   public get key() {
-    return JsApiTicket.key(this.cropId, this.agentId);
+    return JsApiTicket.key(this.corpId, this.agentId);
   }
 
   public get serialized() {
-    return `${this.ticket}|${this.expiresAt}|${this.cropId}|${this.agentId}`;
+    return `${this.ticket}|${this.expiresAt}|${this.corpId}|${this.agentId}`;
   }
 
   public async ensureNotExpired() {

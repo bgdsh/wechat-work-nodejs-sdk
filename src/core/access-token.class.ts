@@ -13,7 +13,7 @@ export class AccessToken {
     agentId?: string
   ): Promise<AccessToken> {
     // TODO: add a force fetch logic
-    const key = AccessToken.key(config.cropId, secretType, agentId);
+    const key = AccessToken.key(config.corpId, secretType, agentId);
     const cachedAccessToken = await config.getFromCacheMethod(key);
     if (cachedAccessToken && cachedAccessToken.content) {
       if (cachedAccessToken.ttlSeconds) {
@@ -44,7 +44,7 @@ export class AccessToken {
     }
     fetching[key] = true;
     const fetched = await AccessToken.fetch(
-      config.cropId,
+      config.corpId,
       AccessToken.getSecret(config, secretType, agentId),
       secretType,
       agentId
@@ -82,15 +82,15 @@ export class AccessToken {
   }
 
   public static async fetch(
-    cropId: string,
+    corpId: string,
     secret: string,
     secretType: EnumSecretType,
     agentId?: string
   ): Promise<AccessToken> {
-    const url = `https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=${cropId}&corpsecret=${secret}`;
+    const url = `https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=${corpId}&corpsecret=${secret}`;
     const resData = (await doGet(url)) as any;
     return new AccessToken(
-      cropId,
+      corpId,
       resData.access_token,
       resData.expires_in,
       secretType,
@@ -99,13 +99,13 @@ export class AccessToken {
   }
 
   public static key(
-    cropId: string,
+    corpId: string,
     secretType: EnumSecretType,
     agentId?: string
   ) {
     // tslint:disable-next-line:no-console
     console.log("secretType: ", secretType);
-    let key = `WECHAT_WORK_ACCESS_TOKEN:${cropId}`;
+    let key = `WECHAT_WORK_ACCESS_TOKEN:${corpId}`;
     switch (secretType) {
       case EnumSecretType.Contact:
         key += ":Contact";
@@ -157,7 +157,7 @@ export class AccessToken {
     return secret;
   }
 
-  public cropId: string;
+  public corpId: string;
   public accessToken: string;
   public expiresIn: number;
   public createdAt: number;
@@ -167,7 +167,7 @@ export class AccessToken {
   public config?: IConfig;
 
   constructor(
-    cropId: string,
+    corpId: string,
     accessToken: string,
     expiresIn: number,
     secretType: EnumSecretType,
@@ -178,7 +178,7 @@ export class AccessToken {
     this.expiresIn = expiresIn;
     this.createdAt = Date.now();
     this.expiresAt = this.createdAt + this.expiresIn * 1000;
-    this.cropId = cropId;
+    this.corpId = corpId;
     this.agentId = agentId;
     this.secretType = secretType;
     this.config = config;
@@ -189,11 +189,11 @@ export class AccessToken {
   }
 
   public get key() {
-    return AccessToken.key(this.cropId, this.secretType, this.agentId);
+    return AccessToken.key(this.corpId, this.secretType, this.agentId);
   }
 
   public get serialized() {
-    return `${this.accessToken}|${this.expiresAt}|${this.cropId}|${
+    return `${this.accessToken}|${this.expiresAt}|${this.corpId}|${
       this.agentId
     }`;
   }

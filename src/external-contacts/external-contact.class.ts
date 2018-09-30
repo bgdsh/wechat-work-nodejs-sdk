@@ -8,9 +8,9 @@ export class ExternalUser {
   public position!: string;
   public avatar!: string;
   // tslint:disable-next-line:variable-name
-  public crop_name!: string;
+  public corp_name!: string;
   // tslint:disable-next-line:variable-name
-  public crop_full_name!: string;
+  public corp_full_name!: string;
 
   public type!: EnumExternalUserType;
 
@@ -27,18 +27,18 @@ export class ExternalUser {
     this.external_userid = uid;
   }
 
-  public get cropName() {
-    return this.crop_name;
+  public get corpName() {
+    return this.corp_name;
   }
-  public set cropName(name: string) {
-    this.crop_name = name;
+  public set corpName(name: string) {
+    this.corp_name = name;
   }
 
-  public get cropFullName() {
-    return this.crop_full_name;
+  public get corpFullName() {
+    return this.corp_full_name;
   }
-  public set cropFullName(name: string) {
-    this.crop_full_name = name;
+  public set corpFullName(name: string) {
+    this.corp_full_name = name;
   }
 
   public get unionId() {

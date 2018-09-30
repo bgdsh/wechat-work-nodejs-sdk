@@ -4,7 +4,7 @@ export interface IApp {
 }
 
 export interface IConfig {
-  cropId: string;
+  corpId: string;
   contactSecret?: string;
   externalContactSecret?: string;
   apps: IApp[];

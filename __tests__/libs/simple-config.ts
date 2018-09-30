@@ -23,7 +23,7 @@ export const getSimpleConfig = (dynamic: boolean = false) => {
   const config: IConfig = {
     apps: loadApps(),
     contactSecret: process.env.CONTACT_SECRET as string,
-    cropId: process.env.CROP_ID as string,
+    corpId: process.env.CORP_ID as string,
     getFromCacheMethod: async (key: string) => {
       const storeObj = jsonfile.readFileSync(storeFile);
       return Promise.resolve({ content: storeObj[key] });
