@@ -1,4 +1,5 @@
 import { AccessToken, EnumSecretType, IConfig } from ".";
+import { AppMessagesCommander } from "../app-messages";
 import { ContactsCommander } from "../contacts";
 import { CustomizedAppsCommander } from "../customized-apps";
 import { ExternalContactCommander } from "../external-contacts";
@@ -46,5 +47,14 @@ export class Commander {
       agentId
     );
     return new JsSdkCommander(accessToken, agentId, this.config);
+  }
+
+  public async getAppMessagesCommander(agentId: string) {
+    const accessToken = await AccessToken.get(
+      this.config,
+      EnumSecretType.Agent,
+      agentId
+    );
+    return new AppMessagesCommander(accessToken);
   }
 }
