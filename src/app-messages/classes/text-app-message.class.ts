@@ -22,7 +22,7 @@ export class TextAppMessage extends AppMessageBase {
       targetDepartmentIds,
       targetTags,
       agentId,
-      EnumAppMessageType.TextCard,
+      EnumAppMessageType.Text,
       safe
     );
     this.text = { content };
