@@ -30,7 +30,7 @@ export class TextCardAppMessage extends AppMessageBase {
       targetDepartmentIds,
       targetTags,
       agentId,
-      EnumAppMessageType.Text,
+      EnumAppMessageType.TextCard,
       safe
     );
     this.textcard = { title, description, url, btntxt: btnText };
