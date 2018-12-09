@@ -5,15 +5,19 @@ import { EnumErrors } from "./errors.enum";
 import { doGet } from "./http-helper";
 import { EnumSecretType } from "./secret-type.enum";
 
+import debug from "debug";
+const debugThis = debug("wechat-work:access-token-class");
+
 const fetching: { [key: string]: boolean } = {}; // TODO: multi server
 export class AccessToken {
-  public static async get(
+  public static async getInstance(
     config: IConfig,
     secretType: EnumSecretType,
     agentId?: string
   ): Promise<AccessToken> {
     // TODO: add a force fetch logic
-    const key = AccessToken.key(config.corpId, secretType, agentId);
+    const key = AccessToken.getStorageKey(config.corpId, secretType, agentId);
+    debugThis(`storage key for access token: ${key}`);
     const cachedAccessToken = await config.getFromCacheMethod(key);
     if (cachedAccessToken && cachedAccessToken.content) {
       if (cachedAccessToken.ttlSeconds) {
@@ -39,24 +43,30 @@ export class AccessToken {
     // cached access token is not valid.
     // So we should fetch from wechat server.
     if (fetching[key] === true) {
+      debugThis(`waiting for another process to release this key: ${key}`);
       await timer(100);
-      return await AccessToken.get(config, secretType, agentId);
+      return await AccessToken.getInstance(config, secretType, agentId);
     }
     fetching[key] = true;
-    const fetched = await AccessToken.fetch(
-      config.corpId,
-      AccessToken.getSecret(config, secretType, agentId),
-      secretType,
-      agentId
-    );
-    fetched.config = config;
-    await config.saveToCacheMethod(
-      fetched.key,
-      fetched.serialized,
-      fetched.expiresIn
-    );
-    fetching[key] = false;
-    return fetched;
+    try {
+      const fetched = await AccessToken.fetch(
+        config.corpId,
+        AccessToken.getSecret(config, secretType, agentId),
+        secretType,
+        agentId
+      );
+      fetched.config = config;
+      await config.saveToCacheMethod(
+        fetched.storageKey,
+        fetched.serialized,
+        fetched.expiresIn
+      );
+      fetching[key] = false;
+      return fetched;
+    } catch (err) {
+      fetching[key] = false;
+      throw err;
+    }
   }
 
   public static deSerialize(serialized: string, ttlSeconds?: number) {
@@ -98,7 +108,7 @@ export class AccessToken {
     );
   }
 
-  public static key(
+  public static getStorageKey(
     corpId: string,
     secretType: EnumSecretType,
     agentId?: string
@@ -145,11 +155,13 @@ export class AccessToken {
         secret = config.externalContactSecret;
         break;
       case EnumSecretType.Agent:
-        const pair = config.apps.filter(app => app.agentId === agentId);
-        if (pair.length === 0) {
+        debugThis(`desired agentId is ${agentId}`);
+        debugThis(JSON.stringify(config.apps));
+        const appsFound = config.apps.filter(app => app.agentId === agentId);
+        if (appsFound.length === 0) {
           throw Error(EnumErrors.AGENT_NOT_CONFIGURED);
         }
-        secret = pair[0].agentSecret;
+        secret = appsFound[0].agentSecret;
         break;
       default:
         throw Error(EnumErrors.SECRET_TYPE_NOT_SUPPORTED);
@@ -188,8 +200,12 @@ export class AccessToken {
     return this.expiresAt <= Date.now();
   }
 
-  public get key() {
-    return AccessToken.key(this.corpId, this.secretType, this.agentId);
+  public get storageKey() {
+    return AccessToken.getStorageKey(
+      this.corpId,
+      this.secretType,
+      this.agentId
+    );
   }
 
   public get serialized() {
@@ -203,7 +219,7 @@ export class AccessToken {
       if (!this.config) {
         throw Error(EnumErrors.CONFIG_SHOULD_PROVIDED);
       }
-      const token = await AccessToken.get(
+      const token = await AccessToken.getInstance(
         this.config,
         this.secretType,
         this.agentId

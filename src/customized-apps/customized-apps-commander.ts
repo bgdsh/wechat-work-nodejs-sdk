@@ -1,4 +1,3 @@
-import debug from "debug";
 import {
   AuthScope,
   CustomizedApp,
@@ -7,6 +6,7 @@ import {
 } from ".";
 import { AccessToken, CommanderParent, doGet, doPost } from "../core";
 
+import debug from "debug";
 const debugThis = debug("wechat-work:customized-apps-commander");
 
 export class CustomizedAppsCommander extends CommanderParent {

@@ -4,6 +4,7 @@ import { ContactsCommander } from "../contacts";
 import { CustomizedAppsCommander } from "../customized-apps";
 import { ExternalContactCommander } from "../external-contacts";
 import { JsSdkCommander } from "../jssdk";
+import { MediaCommander } from "./../media/media-commander";
 
 export class Commander {
   private config: IConfig;
@@ -15,12 +16,12 @@ export class Commander {
   public async getContactsCommander(
     secretType: EnumSecretType = EnumSecretType.Contact
   ) {
-    const accessToken = await AccessToken.get(this.config, secretType);
+    const accessToken = await AccessToken.getInstance(this.config, secretType);
     return new ContactsCommander(accessToken);
   }
 
   public async getExternalContactsCommander() {
-    const accessToken = await AccessToken.get(
+    const accessToken = await AccessToken.getInstance(
       this.config,
       EnumSecretType.ExternalContact
     );
@@ -28,11 +29,11 @@ export class Commander {
   }
 
   public async getAccessToken(secretType: EnumSecretType, agentId?: string) {
-    return AccessToken.get(this.config, secretType, agentId);
+    return AccessToken.getInstance(this.config, secretType, agentId);
   }
 
   public async getCustomizedAppCommander(agentId: string) {
-    const accessToken = await AccessToken.get(
+    const accessToken = await AccessToken.getInstance(
       this.config,
       EnumSecretType.Agent,
       agentId
@@ -41,7 +42,7 @@ export class Commander {
   }
 
   public async getJsSdkCommander(agentId: string) {
-    const accessToken = await AccessToken.get(
+    const accessToken = await AccessToken.getInstance(
       this.config,
       EnumSecretType.Agent,
       agentId
@@ -50,11 +51,20 @@ export class Commander {
   }
 
   public async getAppMessagesCommander(agentId: string) {
-    const accessToken = await AccessToken.get(
+    const accessToken = await AccessToken.getInstance(
       this.config,
       EnumSecretType.Agent,
       agentId
     );
     return new AppMessagesCommander(accessToken);
+  }
+
+  public async getMediaCommander(agentId: string) {
+    const accessToken = await AccessToken.getInstance(
+      this.config,
+      EnumSecretType.Agent,
+      agentId
+    );
+    return new MediaCommander(accessToken);
   }
 }
