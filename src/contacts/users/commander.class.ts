@@ -3,6 +3,9 @@ import { SimpleUser } from "./simple-user.class";
 import { EnumTrueFalse } from "./true-false.enum";
 import { User } from "./user.class";
 
+import debug from "debug";
+const debugThis = debug("wechat-work:users-commander");
+
 export class UsersCommander extends CommanderParent {
   constructor(accessToken: AccessToken) {
     super(accessToken);
@@ -60,8 +63,8 @@ export class UsersCommander extends CommanderParent {
     const url = `https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token=${
       this.accessToken.accessToken
     }&department_id=${departmentId}&fetch_child=${fetchChild}`;
-    const response = await doGet(url);
-    return response.data.userlist as SimpleUser[];
+    const resData = await doGet(url);
+    return resData.userlist as SimpleUser[];
   }
 
   public async findByDepartment(
@@ -72,8 +75,10 @@ export class UsersCommander extends CommanderParent {
     const url = `https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token=${
       this.accessToken.accessToken
     }&department_id=${departmentId}&fetch_child=${fetchChild}`;
-    const response = await doGet(url);
-    return response.data.userlist as User[];
+    const resData = await doGet(url);
+    return resData.userlist.map((user: any) => {
+      return new User(user);
+    });
   }
 
   public async convertToOpenId(userId: string) {

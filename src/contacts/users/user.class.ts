@@ -6,8 +6,8 @@ import { EnumGender } from "./gender.enum";
 import { EnumTrueFalse } from "./true-false.enum";
 
 export class User {
-  public userid: string;
-  public name: string;
+  public userid!: string;
+  public name!: string;
   // tslint:disable-next-line:variable-name
   public english_name?: string;
   public mobile?: string;
@@ -29,38 +29,8 @@ export class User {
   // tslint:disable-next-line:variable-name
   public qr_code?: string;
 
-  constructor(
-    userId: string,
-    name: string,
-    englishName?: string,
-    mobile?: string,
-    department?: number[],
-    order?: number[],
-    position?: string,
-    gender?: EnumGender,
-    email?: string,
-    isLeader?: EnumTrueFalse,
-    enable?: boolean,
-    avatarMediaId?: string,
-    telephone?: string,
-    extAttr?: IExtAttr,
-    toInvite?: boolean
-  ) {
-    this.userid = userId;
-    this.name = name;
-    this.english_name = englishName;
-    this.mobile = mobile;
-    this.department = department;
-    this.order = order;
-    this.position = position;
-    this.gender = gender;
-    this.email = email;
-    this.isleader = isLeader;
-    this.enable = enable;
-    this.avatar_mediaid = avatarMediaId;
-    this.telephone = telephone;
-    this.extattr = extAttr;
-    this.to_invite = toInvite;
+  public constructor(obj: object) {
+    Object.assign(this, obj);
   }
 
   public get userId() {
