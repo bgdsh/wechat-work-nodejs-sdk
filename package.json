@@ -31,7 +31,7 @@
     "sha1": "^1.1.1"
   },
   "devDependencies": {
-    "@types/chance": "^1.0.1",
+    "@types/chance": "^1.0.6",
     "@types/debug": "4.1.4",
     "@types/dotenv": "^6.1.1",
     "@types/jest": "^24.0.13",
