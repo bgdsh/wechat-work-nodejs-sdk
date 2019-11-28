@@ -42,7 +42,7 @@
     "jest-coverage-badges": "^1.0.0",
     "jsonfile": "^5.0.0",
     "ts-jest": "^24.0.2",
-    "ts-node": "^8.5.2",
+    "ts-node": "^8.5.3",
     "typescript": "^3.5.1"
   },
   "jest": {
