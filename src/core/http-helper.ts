@@ -9,10 +9,10 @@ const checkResponse = (res: AxiosResponse) => {
 const handleHttpError = (err: any, url: string, method: string, data?: any) => {
   throw Error(
     `HTTP_ERROR_FROM_WECHAT:${JSON.stringify({
+      data,
       message: err.message,
-      url,
       method,
-      data
+      url
     })}`
   );
 };

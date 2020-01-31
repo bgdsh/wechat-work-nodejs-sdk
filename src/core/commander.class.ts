@@ -4,6 +4,7 @@ import { ContactsCommander } from "../contacts";
 import { CustomizedAppsCommander } from "../customized-apps";
 import { ExternalContactCommander } from "../external-contacts";
 import { JsSdkCommander } from "../jssdk";
+import { MiniProgramCommander } from "../mini-programs/mini-programs.commander.class";
 import { MediaCommander } from "./../media/media-commander";
 
 export class Commander {
@@ -39,6 +40,11 @@ export class Commander {
       agentId
     );
     return new CustomizedAppsCommander(accessToken, agentId);
+  }
+
+  public async getMiniProgramCommander(agentId: string) {
+    const accessToken = await AccessToken.getInstance(this.config, EnumSecretType.Agent, agentId);
+    return new MiniProgramCommander(accessToken);
   }
 
   public async getJsSdkCommander(agentId: string) {
