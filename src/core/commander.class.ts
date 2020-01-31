@@ -15,9 +15,10 @@ export class Commander {
 
   // TODO: clarify the SecretType
   public async getContactsCommander(
-    secretType: EnumSecretType = EnumSecretType.Contact
+    secretType: EnumSecretType = EnumSecretType.Contact,
+    agentId?: string,
   ) {
-    const accessToken = await AccessToken.getInstance(this.config, secretType);
+    const accessToken = await AccessToken.getInstance(this.config, secretType, agentId);
     return new ContactsCommander(accessToken);
   }
 
