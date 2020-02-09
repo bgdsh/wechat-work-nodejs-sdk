@@ -2,7 +2,7 @@ import { EnumAppMessageType } from "../enums/app-message-type.enum";
 import { EnumSafe } from "../enums/safe.enum";
 import { AppMessageBase } from "./app-message-base.class";
 
-export interface INewsArticle { title: string; description: string; url: string; picUrl: string; }
+export interface INewsArticle { title: string; description: string; url: string; picurl: string; }
 
 export class NewsAppMessage extends AppMessageBase {
   public news: { articles: INewsArticle[] };
