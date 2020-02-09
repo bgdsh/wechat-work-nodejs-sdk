@@ -1,7 +1,5 @@
-import { doPost } from "../core";
-import { AccessToken } from "../core/access-token.class";
-import { TextAppMessage } from "./classes/text-app-message.class";
-import { TextCardAppMessage } from "./classes/text-card-app-message.class";
+import { AccessToken, doPost } from "../core";
+import { ImageAppMessage, NewsAppMessage, TextAppMessage, TextCardAppMessage } from "./classes";
 
 export class AppMessagesCommander {
   private accessToken: AccessToken;
@@ -9,12 +7,20 @@ export class AppMessagesCommander {
     this.accessToken = accessToken;
   }
 
-  public async send(message: TextAppMessage | TextCardAppMessage) {
+  public async send(message: TextAppMessage | TextCardAppMessage | NewsAppMessage | ImageAppMessage) {
     await this.accessToken.ensureNotExpired();
     const url = ` https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=${
       this.accessToken.accessToken
-    }`;
-    const resData = await doPost(url, message);
-    return resData;
+      }`;
+    const resData: {
+      invaliduser: string,
+      invalidparty: string,
+      invalidtag: string
+    } = await doPost(url, message);
+    return {
+      invalidDepartmentIds: resData.invalidparty.split("|"),
+      invalidTags: resData.invalidtag.split("|"),
+      invalidUserIds: resData.invaliduser.split("|"),
+    };
   }
 }

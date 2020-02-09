@@ -16,7 +16,7 @@ export class DepartmentsCommander extends CommanderParent {
     await this.accessToken.ensureNotExpired();
     const url = `https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token=${
       this.accessToken.accessToken
-    }`;
+      }`;
     const resData = await doPost(url, department);
     department.id = resData.id;
     return department;
@@ -29,7 +29,7 @@ export class DepartmentsCommander extends CommanderParent {
     await this.accessToken.ensureNotExpired();
     const url = `https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token=${
       this.accessToken.accessToken
-    }`;
+      }`;
     await doPost(url, department);
   }
 
@@ -37,7 +37,7 @@ export class DepartmentsCommander extends CommanderParent {
     await this.accessToken.ensureNotExpired();
     const url = `https://qyapi.weixin.qq.com/cgi-bin/department/delete?access_token=${
       this.accessToken.accessToken
-    }&id=${id}`;
+      }&id=${id}`;
     await doGet(url);
   }
 
@@ -45,11 +45,12 @@ export class DepartmentsCommander extends CommanderParent {
     await this.accessToken.ensureNotExpired();
     let url = `https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token=${
       this.accessToken.accessToken
-    }`;
+      }`;
     if (parentId) {
       url += `&id=${parentId}`;
     }
     const resData = await doGet(url);
+    // TODO: create the object by constructor
     return resData.department as Department[];
   }
 }

@@ -32,9 +32,9 @@ export const doGet = async (url: string, clear: boolean = true) => {
   }
 };
 
-export const doPost = async (url: string, data: any) => {
+export const doPost = async (url: string, data: any, headers?: any) => {
   try {
-    const response = await Axios.post(url, data);
+    const response = await Axios.post(url, data, { headers });
     checkResponse(response);
     const resData = response.data;
     delete resData.errcode;

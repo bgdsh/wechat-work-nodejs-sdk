@@ -19,7 +19,7 @@ export class User {
   public isleader?: EnumTrueFalse;
   public enable?: boolean;
   // tslint:disable-next-line:variable-name
-  public avatar_mediaid?: string;
+  public avatar?: string;
   public telephone?: string;
   public extattr?: IExtAttr;
   // tslint:disable-next-line:variable-name
@@ -56,14 +56,6 @@ export class User {
 
   public set isLeader(is: EnumTrueFalse) {
     this.isleader = is;
-  }
-
-  public get avatarMediaId() {
-    return this.avatar_mediaid || "";
-  }
-
-  public set avatarMediaId(mediaId: string) {
-    this.avatar_mediaid = mediaId;
   }
 
   public get extAttr() {

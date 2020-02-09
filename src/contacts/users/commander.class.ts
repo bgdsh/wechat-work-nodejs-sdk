@@ -26,7 +26,7 @@ export class UsersCommander extends CommanderParent {
       this.accessToken.accessToken
     }&userid=${userId}`;
     const resData = await doGet(url);
-    return resData as User;
+    return new User(resData);
   }
 
   public async update(user: User) {

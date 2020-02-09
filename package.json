@@ -1,6 +1,6 @@
 {
   "name": "wechat-work",
-  "version": "0.2.0-RC1",
+  "version": "0.2.0-RC5",
   "description": "sdk for work.weixin.qq.com/api/doc.",
   "main": "dist/index.js",
   "scripts": {
