@@ -3,6 +3,9 @@ import { get } from "https";
 import { AccessToken, CommanderParent } from "../core";
 import { doPost } from "../core/http-helper";
 
+// tslint:disable-next-line: variable-name
+import FormData from "form-data";
+
 export type MediaType = "image" | "voice" | "video" | "file";
 
 export class MediaCommander extends CommanderParent {
