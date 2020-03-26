@@ -9,7 +9,7 @@
     "prepublishOnly": "npm run build",
     "postpack": "rm -rf ./dist",
     "test:badges": "npm run test && jest-coverage-badges",
-    "bump": "bump -a",
+    "bump": "bump -c -p -t",
     "commit": "git add . && git-cz"
   },
   "repository": {
