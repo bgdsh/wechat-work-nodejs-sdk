@@ -13,7 +13,6 @@ export class Commander {
     this.config = config;
   }
 
-  // TODO: clarify the SecretType
   public async getContactsCommander(
     secretType: EnumSecretType = EnumSecretType.Contact,
     agentId?: string,

@@ -6,6 +6,8 @@ import { EnumGender } from "./gender.enum";
 import { EnumTrueFalse } from "./true-false.enum";
 
 export class User {
+  public alias!: string;
+  public address!: string;
   public userid!: string;
   public name!: string;
   // tslint:disable-next-line:variable-name

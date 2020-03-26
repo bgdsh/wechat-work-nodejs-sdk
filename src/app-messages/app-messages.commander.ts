@@ -18,9 +18,9 @@ export class AppMessagesCommander {
       invalidtag: string
     } = await doPost(url, message);
     return {
-      invalidDepartmentIds: resData.invalidparty.split("|"),
-      invalidTags: resData.invalidtag.split("|"),
-      invalidUserIds: resData.invaliduser.split("|"),
+      invalidDepartmentIds: resData.invalidparty && resData.invalidparty.split("|"),
+      invalidTags: resData.invalidtag && resData.invalidtag.split("|"),
+      invalidUserIds: resData.invalidtag && resData.invaliduser.split("|"),
     };
   }
 }

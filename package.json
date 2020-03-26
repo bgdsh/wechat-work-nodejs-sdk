@@ -1,6 +1,6 @@
 {
   "name": "wechat-work",
-  "version": "0.2.0-RC6",
+  "version": "0.2.0-beta.1",
   "description": "sdk for work.weixin.qq.com/api/doc.",
   "main": "dist/index.js",
   "scripts": {
@@ -8,7 +8,9 @@
     "test": "jest",
     "prepublishOnly": "npm run build",
     "postpack": "rm -rf ./dist",
-    "test:badges": "npm run test && jest-coverage-badges"
+    "test:badges": "npm run test && jest-coverage-badges",
+    "bump": "bump -a",
+    "commit": "git add . && git-cz"
   },
   "repository": {
     "type": "git",
@@ -31,6 +33,7 @@
     "sha1": "^1.1.1"
   },
   "devDependencies": {
+    "@jsdevtools/version-bump-prompt": "^6.0.3",
     "@types/chance": "^1.0.1",
     "@types/debug": "4.1.5",
     "@types/dotenv": "^8.2.0",
