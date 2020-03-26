@@ -2,6 +2,7 @@ import { createWriteStream, unlinkSync } from "fs";
 import { get } from "https";
 import { AccessToken, CommanderParent } from "../core";
 import { doPost } from "../core/http-helper";
+import { ReadStream } from 'fs'
 
 // tslint:disable-next-line: variable-name
 import FormData from "form-data";
@@ -33,7 +34,7 @@ export class MediaCommander extends CommanderParent {
     });
   }
 
-  public async uploadTemp(stream: ReadableStream, fileType: MediaType, filename: string) {
+  public async uploadTemp(stream: ReadStream, fileType: MediaType, filename: string) {
     await this.accessToken.ensureNotExpired();
     const formData = new FormData();
     formData.append("file", stream as any);
@@ -54,14 +55,12 @@ export class MediaCommander extends CommanderParent {
     };
   }
 
-  public async uploadImage(stream: ReadableStream, filename: string) {
+  public async uploadImage(stream: ReadStream, filename: string) {
     await this.accessToken.ensureNotExpired();
     const formData = new FormData();
     formData.append("file", stream as any);
     formData.append("filename", filename);
-    const res: {
-      url: string,
-    } = await doPost(
+    const res: { url: string } = await doPost(
       `https://qyapi.weixin.qq.com/cgi-bin/media/uploadimg?access_token=${this.accessToken.accessToken}`,
       formData,
       { "Content-Type": "multipart/form-data" }
